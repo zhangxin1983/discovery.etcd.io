@@ -16,18 +16,14 @@ var addr = flag.String("addr", "", "web service address")
 func main() {
 	var ETCD_CONN = os.Getenv("ETCD_CONN")
 	var BASE_URL = os.Getenv("BASE_URL")
-	if( ETCD_CONN == "" || BASE_URL == "" ){
-		panic("Need envronment ETCD_CONN and BASE_URL")
+	if( ETCD_CONN == "" ){
+		ETCD_CONN = "http://127.0.0.1:4001"
 	}
 	
-	if( !strings.Contains(ETCD_CONN,"http://") ){
-		os.Setenv("ETCD_CONN", "http://" + ETCD_CONN)
+	if( BASE_URL == "" ){
+		BASE_URL = "https://discovery.etcd.io"
 	}
-	
-	if( !strings.Contains(BASE_URL,"http://") ){
-		os.Setenv("BASE_URL", "http://" + BASE_URL)
-	}
-	
+		
 	log.SetFlags(0)
 	flag.Parse()
 
